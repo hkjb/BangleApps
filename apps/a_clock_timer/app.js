@@ -11,13 +11,6 @@ Bangle.on('touch',(touchside, touchdata)=>{
   }
 });
 
-function showWelcomeMessage() {
-  g.reset().clearRect(0, 76, 44+44, g.getHeight()/2+6);
-  g.setFontAlign(0, 0).setFont("6x8");
-  g.drawString("world world world world", 44, 80);
-  g.drawString("world world world world", 44, 88);
-}
-
 // time
 var offsets = require("Storage").readJSON("a_clock_timer.settings.json") || [ ["PAR",1], ["TYO",9] ];
 var drawTimeout;
@@ -67,11 +60,14 @@ function draw() {
   var date = new Date();
   g.setColor('#fff');
   g.setFontAlign(0,0);
-  g.setFont("Vector",36).drawString(locale.time(date,1), g.getWidth()/2, 46);
+  g.setFont("Vector",34).drawString(locale.time(date,1), g.getWidth()/2, 46);
   g.setFont("6x8");
-  g.drawString(locale.date(new Date(),1), 125, 68);
-  g.drawString(offsets[0][0]+" "+locale.time(getTimeFromTimezone(offsets[0][1]),1), 125, 80);
-  g.drawString(offsets[1][0]+" "+locale.time(getTimeFromTimezone(offsets[1][1]),1), 125, 88);
+  g.drawString(locale.date(new Date(),1), 44, 68);
+  g.drawString(offsets[0][0]+" "+locale.time(getTimeFromTimezone(offsets[0][1]),1), 44, 80);
+  g.drawString(offsets[1][0]+" "+locale.time(getTimeFromTimezone(offsets[1][1]),1), 44, 88);
+
+  g.drawString("world world world", 125, 80);
+  g.drawString("world world world", 125, 88);
 
   queueNextDraw();
 }
@@ -82,4 +78,3 @@ draw();
 Bangle.setUI("clock");
 Bangle.loadWidgets();
 Bangle.drawWidgets();
-showWelcomeMessage();
