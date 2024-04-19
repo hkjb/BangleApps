@@ -14,9 +14,8 @@ Bangle.on('touch',(touchside, touchdata)=>{
 function showWelcomeMessage() {
   g.reset().clearRect(0, 76, 44+44, g.getHeight()/2+6);
   g.setFontAlign(0, 0).setFont("6x8");
-  g.drawString("Hello", 44, 80);
-  g.drawString("world", 44, 88);
-  setTimeout(function(){ g.reset().clearRect(0, 76, 44+44, g.getHeight()/2+6); }, 8000);
+  g.drawString("world world world world", 44, 80);
+  g.drawString("world world world world", 44, 88);
 }
 
 // time
@@ -66,6 +65,7 @@ function draw() {
   var locale = require("locale");
 
   var date = new Date();
+  g.setColor('#fff');
   g.setFontAlign(0,0);
   g.setFont("Vector",36).drawString(locale.time(date,1), g.getWidth()/2, 46);
   g.setFont("6x8");
