@@ -62,12 +62,12 @@ function draw() {
   g.setFontAlign(0,0);
   g.setFont("Vector",34).drawString(locale.time(date,1), g.getWidth()/2, 46);
   g.setFont("6x8");
-  g.drawString(locale.date(new Date(),1), 44, 68);
+  g.drawString(locale.date(new Date(),1), g.getWidth()/2, 68);
   g.drawString(offsets[0][0]+" "+locale.time(getTimeFromTimezone(offsets[0][1]),1), 44, 80);
   g.drawString(offsets[1][0]+" "+locale.time(getTimeFromTimezone(offsets[1][1]),1), 44, 88);
 
-  g.drawString("world world world", 125, 80);
-  g.drawString("world world world", 125, 88);
+  g.drawString("Wiggly days", 125, 80);
+  g.drawString("Wiggly nights", 125, 88);
 
   queueNextDraw();
 }
