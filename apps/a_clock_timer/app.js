@@ -13,78 +13,17 @@ Graphics.prototype.setFontMichroma16 = function(scale) {
 g.setFontCustom(atob("AAAAGAAYAAAAGAB4A/APwD4AeADgAAAAAAA/8H/4YBjAGMAcwBzAHMAcwBzAHMAYYBh/+D/wAAAAABgAOABwAGAA//h/+AAAAAA4+Hn4YZjhmMOYw5jDmMMYwxjDGOMYYxh/GD4YAAAAADBwcHhgGOAYwBzHHMccxxzHHMcc5xhnGH/4PfAAAAAAAOAB4APgB2AGYAxgHGA4YDBgYGD/+P/4AOAAYAAAAAD+cP547BjsGOwc7BzsHOwc7BzsHOwY7zjv+APgAAAAAD/wf/hmGOYYxhzGHMYcxhzGHOYYZhh3uDP4AeAAAEAA4ADgAOAI4DjgeODw4eDjgOcA7gD8APgA8AAAAAAAAAA58H/4bxjmGMYcxhzGHMYcxhzGHOYYbxh/+DnwAAAAADxgfnBnOOMYwxjDHMMcwxzDHMMY4xhjOH/4P/AAAAAABnAGcAAA"), 46, atob("BAgQCBAQEBAQEBAQBA=="), 16+(scale<<8)+(1<<16));
 };
 
-// timer
-var timervalue = 0;
-var istimeron = false;
-var timertick;
-
 Bangle.on('touch',(touchside, touchdata)=>{
   if (touchside == 1) {
     Bangle.buzz(30);
-    var changevalue = 0;
-    if(touchdata.y > 88) {
-      changevalue += 60*5;
-    } else {
-      changevalue += 60*1;
-    }
-    if (timervalue < changevalue) { timervalue = 1 ; }
-    else { timervalue -= changevalue; }
-  }
-  else if (touchside == 2) {
-    Bangle.buzz(30);
-    if (!istimeron) {
-      istimeron = true;
-      timertick = setInterval(countDown, 1000);
-    }
-    if(touchdata.y > 88) {
-      timervalue += 60*10;
-    } else {
-      timervalue += 60*1;
-    }
   }
 });
-
-function timeToString(duration) {
-    var hrs = ~~(duration / 3600);
-    var mins = ~~((duration % 3600) / 60);
-    var secs = ~~duration % 60;
-    var ret = "";
-    if (hrs > 0) {
-        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-    }
-    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-    ret += "" + secs;
-    return ret;
-}
-
-function countDown() {
-  timervalue--;
-
-  g.reset().clearRect(0, 76, 44+44, g.getHeight()/2+6);
-
-  g.setFontAlign(0, -1, 0);
-  g.setFont("6x8").drawString("Timer", 44, g.getHeight()/2-20);
-  g.setFont("Michroma16").drawString(timeToString(timervalue), 44, g.getHeight()/2-10);
-
-  if (timervalue <= 0) {
-    istimeron = false;
-    clearInterval(timertick);
-
-    Bangle.buzz().then(()=>{
-      return new Promise(resolve=>setTimeout(resolve, 500));
-    }).then(()=>{
-      return Bangle.buzz(1000);
-    });
-  }
-  else
-    if ((timervalue <= 30) && (timervalue % 10 == 0)) { Bangle.buzz(); }
-}
 
 function showWelcomeMessage() {
   g.reset().clearRect(0, 76, 44+44, g.getHeight()/2+6);
   g.setFontAlign(0, 0).setFont("6x8");
-  g.drawString("Tap right to", 44, 80);
-  g.drawString("start timer", 44, 88);
+  g.drawString("Hello", 44, 80);
+  g.drawString("world", 44, 88);
   setTimeout(function(){ g.reset().clearRect(0, 76, 44+44, g.getHeight()/2+6); }, 8000);
 }
 
@@ -146,7 +85,7 @@ function draw() {
 }
 
 // init
-g.setTheme({bg:"#fff",fg:"#000",dark:false}).clear();
+g.setTheme({bg:"#000",fg:"#fff",dark:true}).clear();
 draw();
 Bangle.setUI("clock");
 Bangle.loadWidgets();
